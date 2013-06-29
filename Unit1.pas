@@ -20,8 +20,6 @@ type
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
-    procedure IdFTP1Status(ASender: TObject; const AStatus: TIdStatus;
-      const AStatusText: string);
     procedure FormShow(Sender: TObject);
   private
     { Private declarations }
@@ -101,30 +99,12 @@ var
   i: integer;
   new_file_datetime:TDateTime;
 begin //下载
-  // if not IdFTP1.Connected then IdFTP1.Connected;
-  //if not IdFTP1.Connected then idftp1.Connect(True);
-  //Dir_List := TStringList.Create;
- // IdFTP1.Connect();
-  IdFTP1.TransferType := ftASCII; //ftBinary; //指定为二进制文件   或文本文件ftASCII
-  //IdFTP1.List(Dir_List,'',true);
-
- // idftp1.List(Dir_List, '', true);
- // Memo1.Clear;
-  //memo1.Lines.Assign(Dir_List);
-
+  // IdFTP1.TransferType := ftASCII; //ftBinary; //指定为二进制文件   或文本文件ftASCII
   IDFTP1.TransferType := ftBinary; //更改传输类型
   ProgressBar1.Min := 0;
   ProgressBar1.Max := memo1.Lines.Count;
-                                                        // Memo1.Lines
   for i := 0 to  memo1.Lines.Count - 1 do
   begin
-      // memo2.Lines.Add(IdFTP1.DirectoryListing.Items[i].FileName+' ('+IntToStr(IdFTP1.DirectoryListing.Items[i].Size)+' Byte) Start Download....');
-    {   try
-         IdFTP1.Get(IdFTP1.DirectoryListing.Items[i].FileName,'d:\FTPtest\'+IdFTP1.DirectoryListing.Items[i].FileName,true,True); //下载到本地，并为覆盖，且支持断点续传
-       except
-       end;  }
-    // IdFTP1.Get(IdFTP1.DirectoryListing.Items[i].FileName, 'd:\FTPtest\' + IdFTP1.DirectoryListing.Items[i].FileName, true);
-     //ShowMessage(DateTimeToStr(IdFTP1.DirectoryListing.Items[i].ModifiedDate));
      new_file_datetime:= idFTP1.FileDate(memo1.Lines[i]);
      IdFTP1.Get(memo1.Lines[i], 'd:\FTPtest\' + memo1.Lines[i], true);
      SetFileDateTime('d:\FTPtest\' + memo1.Lines[i],new_file_datetime);
@@ -162,13 +142,6 @@ begin //上传
     fi := OpenDialog1.FileName;
     IdFTP1.Put(fi, ExtractFileName(fi)); //上传，
   end;
-end;
-
-procedure TForm1.IdFTP1Status(ASender: TObject; const AStatus: TIdStatus;
-  const AStatusText: string);
-begin
-   // Memo2.Clear;
-  //  memo2.Lines.Add(AStatusText)
 end;
 
 procedure TForm1.FormShow(Sender: TObject);

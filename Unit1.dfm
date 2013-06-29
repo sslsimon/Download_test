@@ -69,7 +69,6 @@ object Form1: TForm1
     Top = 208
   end
   object IdFTP1: TIdFTP
-    OnStatus = IdFTP1Status
     AutoLogin = True
     ProxySettings.ProxyType = fpcmNone
     ProxySettings.Port = 0
