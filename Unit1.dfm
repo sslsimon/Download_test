@@ -4,7 +4,7 @@ object Form1: TForm1
   BorderStyle = bsDialog
   Caption = #31243#24207#26356#26032
   ClientHeight = 113
-  ClientWidth = 718
+  ClientWidth = 621
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -40,11 +40,11 @@ object Form1: TForm1
     OnClick = Button1Click
   end
   object Button2: TButton
-    Left = 632
-    Top = 40
+    Left = 425
+    Top = 4
     Width = 75
     Height = 25
-    Caption = #19979#36733
+    Caption = #19979#36733#26356#26032
     TabOrder = 1
     OnClick = Button2Click
   end
@@ -67,7 +67,7 @@ object Form1: TForm1
   object ProgressBar1: TProgressBar
     Left = 0
     Top = 97
-    Width = 718
+    Width = 621
     Height = 16
     Align = alBottom
     TabOrder = 4

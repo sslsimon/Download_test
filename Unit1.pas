@@ -19,8 +19,9 @@ type
     Label1: TLabel;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
-    procedure Button3Click(Sender: TObject);
+    //procedure Button3Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
+
   private
     { Private declarations }
     function MsgBox(Msg: string; iValue: integer): integer;
@@ -62,7 +63,7 @@ try
 finally
   FileClose(FileHandle);
 end;  
-end; 
+end;
 
 procedure TForm1.Button1Click(Sender: TObject);
 var
@@ -79,7 +80,7 @@ begin //连接
      //idftp1.ChangeDir('client'); //进入到client子目录
      //idftp1.ChangeDir('..'); //回到上一级目录
       Edit1.Text := idftp1.RetrieveCurrentDir; //得到初始目录
-      idftp1.List(tr, '', false); //得到client目录下所有文件列表
+      idftp1.List(tr, '', false); //得到目录下所有文件列表
       Memo1.Lines.Assign(tr);
     except
       on E: Exception do
@@ -97,7 +98,7 @@ procedure TForm1.Button2Click(Sender: TObject);
 var
   Dir_List: TStringList;
   i: integer;
-  new_file_datetime:TDateTime;
+  new_file_datetime_edit,new_file_datetime_cre:TDateTime;
 begin //下载
   // IdFTP1.TransferType := ftASCII; //ftBinary; //指定为二进制文件   或文本文件ftASCII
   IDFTP1.TransferType := ftBinary; //更改传输类型
@@ -105,9 +106,10 @@ begin //下载
   ProgressBar1.Max := memo1.Lines.Count;
   for i := 0 to  memo1.Lines.Count - 1 do
   begin
-     new_file_datetime:= idFTP1.FileDate(memo1.Lines[i]);
+     new_file_datetime_edit:= idFTP1.FileDate(memo1.Lines[i]);
      IdFTP1.Get(memo1.Lines[i], 'd:\FTPtest\' + memo1.Lines[i], true);
-     SetFileDateTime('d:\FTPtest\' + memo1.Lines[i],new_file_datetime);
+     SetFileDateTime('d:\FTPtest\' + memo1.Lines[i],new_file_datetime_edit);
+
     // ShowMessage(IdFTP1.DirectoryListing.Items[i].FileName);
     { 原处理过程，带提示可选
       if FileExists('d:\FTPtest\' + IdFTP1.DirectoryListing.Items[i].FileName) then
@@ -133,46 +135,22 @@ begin //下载
   ProgressBar1.Position := 0;
 end;
 
-procedure TForm1.Button3Click(Sender: TObject);
+{procedure TForm1.Button3Click(Sender: TObject);
 var
   fi: string;
 begin //上传
-  if OpenDialog1.Execute then
+ ｛ if OpenDialog1.Execute then
   begin
     fi := OpenDialog1.FileName;
     IdFTP1.Put(fi, ExtractFileName(fi)); //上传，
   end;
-end;
+end; }
 
 procedure TForm1.FormShow(Sender: TObject);
 var
   tr: Tstrings;
 begin //连接
  Button1.Click;
-{  tr := TStringlist.Create;
-  try
-    try
-      idftp1.Passive := True;
-      idftp1.Host := '192.180.0.98'; //FTP服务器地址
-      idftp1.Username := 'guest'; //FTP服务器用户名
-      idftp1.Password := ''; //FTP服务器密码
-      idftp1.Connect(); //连接到ftp
-     //idftp1.ChangeDir('client'); //进入到client子目录
-     //idftp1.ChangeDir('..'); //回到上一级目录
-      Edit1.Text := idftp1.RetrieveCurrentDir; //得到初始目录
-      idftp1.List(tr, '', true); //得到client目录下所有文件列表
-      Memo1.Lines.Assign(tr);
-     // memo1.Lines.Assign(Dir_List);
-    except
-      on E: Exception do
-      begin
-        MessageBox(Self.Handle, Pchar('系统提示您：' + e.Message), Pchar(self.Caption), MB_OK + MB_ICONERROR);
-         // memo2.Lines.Add('Exception');
-      end;
-    end;
-  finally
-    tr.Free;
-  end;  }
 end;
 
 end.
