@@ -13,10 +13,10 @@ type
     Button2: TButton;
     Edit1: TEdit;
     Memo1: TMemo;
-    Label1: TLabel;
     OpenDialog1: TOpenDialog;
     IdFTP1: TIdFTP;
     ProgressBar1: TProgressBar;
+    Label1: TLabel;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
@@ -148,6 +148,7 @@ procedure TForm1.FormShow(Sender: TObject);
 var
   tr: Tstrings;
 begin //Á¬½Ó
+ Button1.Click;
 {  tr := TStringlist.Create;
   try
     try
